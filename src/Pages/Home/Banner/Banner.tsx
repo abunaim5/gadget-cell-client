@@ -37,7 +37,7 @@ const Banner = () => {
                                 <p className='text-sm'>
                                     Innovative foldable phone with dual displays and powerful performance. The Samsung Galaxy Z Fold 4 is a premium foldable smartphone that offers a unique, cutting-edge design with dual displays and advanced features.
                                 </p>
-                                <Button variant='destructive' className="">Shop Now<PiShoppingCart className='text-3xl' /></Button>
+                                <Button className='bg-orange-500 hover:bg-orange-600'>Shop Now<PiShoppingCart className='text-3xl' /></Button>
                             </div>
                         </div>
                     </SwiperSlide>
@@ -49,7 +49,7 @@ const Banner = () => {
                                 <p className='text-sm'>
                                     Apple MacBook Pro M4 Max is the top choice for 2024, especially for tech enthusiasts and content creators. If you're a video editor or work with demanding tasks daily, this laptop is a must-have. Loved by reviewers for its lightning-fast processing.
                                 </p>
-                                <Button variant='destructive' className=''>Shop Now<PiShoppingCart className='text-3xl' /></Button>
+                                <Button className='bg-orange-500 hover:bg-orange-600'>Shop Now<PiShoppingCart className='text-3xl' /></Button>
                             </div>
                         </div>
                     </SwiperSlide>
@@ -63,7 +63,7 @@ const Banner = () => {
                         <p className='text-sm'>
                             AirPods Pro 2nd Generation attaches with an enhanced Noise Cancelling arrangement.
                         </p>
-                        <Button variant='destructive' className=''>Shop Now<PiShoppingCart className='text-3xl' /></Button>
+                        <Button className='bg-orange-500 hover:bg-orange-600'>Shop Now<PiShoppingCart className='text-3xl' /></Button>
                     </div>
                 </div>
             </div>
@@ -75,7 +75,7 @@ const Banner = () => {
                         <p className='text-sm'>
                            The OnePlus Watch embodies sophistication with its premium and unique design.
                         </p>
-                        <Button variant='destructive' className=''>Shop Now<PiShoppingCart className='text-3xl' /></Button>
+                        <Button className='bg-orange-500 hover:bg-orange-600'>Shop Now<PiShoppingCart className='text-3xl' /></Button>
                     </div>
                 </div>
             </div>
