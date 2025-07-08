@@ -14,17 +14,17 @@ type NavLinksType = {
 const Navbar = () => {
     return (
         <nav className='py-4 lg:py-5 shadow'>
-            <div className='w-5/6 mx-auto flex items-center justify-between'>
+            <div className='w-full lg:w-5/6 xl:w-4/6 mx-auto px-4 lg:px-0 flex items-center justify-between'>
                 <h2 className='text-3xl'>GadgetCell</h2>
-                <div className='space-x-6'>
+                <div className='space-x-9'>
                     {
-                        navLinks.map((nav: NavLinksType, idx) => <NavLink to={nav.path} key={idx} className={({ isActive }) => isActive ? 'text-cyan-500 font-semibold' : 'transition-all delay-100 text-gray-600 hover:text-cyan-500'}>{nav.name}</NavLink>)
+                        navLinks.map((nav: NavLinksType, idx) => <NavLink to={nav.path} key={idx} className={({ isActive }) => isActive ? 'text-cyan-500 font-semibold' : 'transition-all delay-100 hover:text-cyan-500'}>{nav.name}</NavLink>)
                     }
                 </div>
                 <div className='flex items-center justify-end gap-2 md:gap-4 text-[22px] md:text-2xl'>
                     <IoSearchOutline className='hidden md:block cursor-pointer transition-all duration-300 hover:text-cyan-500' />
                     <FiUser className='hidden md:block cursor-pointer transition-all duration-300 hover:text-cyan-500' />
-                    <Link to='/wishlist' className='relative hidden md:block group'>
+                    <Link to='/' className='relative hidden md:block group'>
                         <IoMdHeartEmpty className='transition-all duration-300 group-hover:text-cyan-500' />
                         <span className='absolute -top-1 -right-1.5 min-w-4 min-h-4 rounded-full flex items-center justify-center text-[10px] leading-none text-white bg-black'>0</span>
                     </Link>
