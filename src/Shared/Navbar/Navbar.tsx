@@ -1,7 +1,7 @@
 import DrawerCard from "@/components/custom/DrawerCard/DrawerCard";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { Drawer, DrawerClose, DrawerContent, DrawerFooter, DrawerHeader, DrawerTitle } from "@/components/ui/drawer";
-import { navLinks } from "@/constants/constents";
+import { navLinks } from "@/constants/constants";
 import type { CartProductResponseType } from "@/types/product";
 import { useEffect, useState, type FormEvent } from "react";
 import { FiUser } from "react-icons/fi";

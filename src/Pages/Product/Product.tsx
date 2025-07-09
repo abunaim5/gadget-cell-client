@@ -1,5 +1,5 @@
 import { FaCartArrowDown, FaFacebookF, FaMinus, FaPinterest, FaPlus, FaWhatsapp } from 'react-icons/fa';
-import type { ProductResponseType } from '@/types/product';
+import type { CartProductListType, ProductResponseType } from '@/types/product';
 import { useLoaderData } from 'react-router-dom';
 import { Rating } from 'react-simple-star-rating';
 import { Button } from '@/components/ui/button';
@@ -9,6 +9,38 @@ import { Skeleton } from '@/components/ui/skeleton';
 
 const Product = () => {
     const product: ProductResponseType = useLoaderData();
+
+    const handleAddToCart = async () => {
+        const cartProduct: CartProductListType = {
+            productId: product._id,
+            name: product.name,
+            brand: product.brand,
+            image: product.image,
+            description: product.description,
+            price: product.price,
+            old_price: product.old_price,
+            category: product.category,
+            ratings: product.ratings,
+            createdAt: product.createdAt
+        };
+
+        try {
+            const res = await fetch('http://localhost:5000/cart', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(cartProduct)
+            });
+            if (res.ok) {
+                alert('Product added to cart');
+            } else {
+                alert('Failed to add product');
+            }
+        } catch (err) {
+            console.error('Error: ', err);
+        }
+    };
 
     return (
         <section className='w-full lg:w-5/6 xl:w-4/6 mx-auto px-4 lg:px-0 py-11'>
@@ -66,7 +98,7 @@ const Product = () => {
                                 <span className='text-base'>{1}</span>
                                 <Button variant='ghost'><FaPlus /></Button>
                             </div>
-                            <Button>Add to Cart</Button>
+                            <Button onClick={handleAddToCart}>Add to Cart</Button>
                             <Button><IoMdHeartEmpty /></Button>
                             <Button className=''>Buy Now</Button>
                         </div>
