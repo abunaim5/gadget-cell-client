@@ -17,7 +17,7 @@ const ProductCard = ({ product }: ProductPropTypes) => {
             image: product.image,
             description: product.description,
             price: product.price,
-            oldPrice: product.old_price,
+            old_price: product.old_price,
             category: product.category,
             ratings: product.ratings,
             createdAt: product.createdAt

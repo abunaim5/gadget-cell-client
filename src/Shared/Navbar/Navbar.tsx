@@ -1,6 +1,10 @@
+import DrawerCard from "@/components/custom/DrawerCard/DrawerCard";
+import { Drawer, DrawerClose, DrawerContent, DrawerFooter, DrawerHeader, DrawerTitle } from "@/components/ui/drawer";
 import { navLinks } from "@/constants/constents";
+import type { CartProductResponseType } from "@/types/product";
+import { useEffect, useState } from "react";
 import { FiUser } from "react-icons/fi";
-import { IoMdHeartEmpty } from "react-icons/io";
+import { IoMdArrowForward, IoMdClose, IoMdHeartEmpty } from "react-icons/io";
 import { IoSearchOutline } from "react-icons/io5";
 import { PiShoppingCartSimple } from "react-icons/pi";
 import { Link } from "react-router-dom";
@@ -12,8 +16,55 @@ type NavLinksType = {
 }
 
 const Navbar = () => {
+    const [cartProduct, setCartProduct] = useState<CartProductResponseType[]>([]);
+    const [open, setOpen] = useState<boolean>(false);
+
+    const cartDrawerElem = <>
+        <h3 className='shadow-md text-base px-4 py-3'>Cart Products</h3>
+        <div className='max-h-[74.813vh] overflow-y-auto custom-scrollbar'>
+            <div className='flex flex-col gap-4 mt-4'>
+                {
+                    cartProduct.map(product => <DrawerCard key={product._id} product={product} />)
+                }
+            </div>
+        </div>
+    </>
+
+    useEffect(() => {
+        const getCartProducts = async () => {
+            try {
+                const res = await fetch('http://localhost:5000/cart');
+                const data = await res.json();
+                setCartProduct(data);
+            } catch (err) {
+                console.error(err);
+            }
+        };
+
+        getCartProducts();
+    }, []);
+
     return (
         <nav className='py-4 lg:py-5 shadow'>
+            <Drawer direction='right' open={open} onOpenChange={() => setOpen(false)}>
+                <DrawerContent className='max-h-[100vh] rounded-none w-full md:w-[340px]' aria-describedby="">
+                    <DrawerHeader className='flex flex-row items-center justify-between border-b'>
+                        <DrawerTitle className='text-2xl tracking-normal font-normal uppercase'>cart</DrawerTitle>
+                        <DrawerClose>
+                            <IoMdClose className='text-2xl' />
+                        </DrawerClose>
+                    </DrawerHeader>
+                    <div className='flex-1'>
+                        {cartDrawerElem}
+                    </div>
+                    <DrawerFooter className='border-t mt-0'>
+                        <button className='flex items-center gap-2 cursor-pointer hover:text-orange-500'>
+                            Checkout
+                            <IoMdArrowForward />
+                        </button>
+                    </DrawerFooter>
+                </DrawerContent>
+            </Drawer>
             <div className='w-full lg:w-5/6 xl:w-4/6 mx-auto px-4 lg:px-0 flex items-center justify-between'>
                 <h2 className='text-3xl'>GadgetCell</h2>
                 <div className='space-x-9'>
@@ -28,10 +79,10 @@ const Navbar = () => {
                         <IoMdHeartEmpty className='transition-all duration-300 group-hover:text-orange-500' />
                         <span className='absolute -top-1 -right-1.5 min-w-4 min-h-4 rounded-full flex items-center justify-center text-[10px] leading-none text-white bg-black'>0</span>
                     </Link>
-                    <Link to='/cart' className='relative group'>
+                    <button onClick={() => setOpen(!open)} className='relative group cursor-pointer'>
                         <PiShoppingCartSimple className='transition-all duration-300 group-hover:text-orange-500' />
-                        <span className='absolute -top-1 -right-1.5 min-w-4 min-h-4 rounded-full flex items-center justify-center text-[10px] leading-none text-white bg-black'>0</span>
-                    </Link>
+                        <span className='absolute -top-1 -right-1.5 min-w-4 min-h-4 rounded-full flex items-center justify-center text-[10px] leading-none text-white bg-black'>{cartProduct?.length ?? 0}</span>
+                    </button>
                 </div>
             </div>
         </nav>
