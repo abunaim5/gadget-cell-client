@@ -1,13 +1,46 @@
 import { PiHeartStraightLight, PiShoppingCartSimple } from "react-icons/pi";
 import { HiOutlineEye } from "react-icons/hi";
 import { Link } from "react-router-dom";
-import type { ProductResponseType } from "@/types/product";
+import type { CartProductListType, ProductResponseType } from "@/types/product";
 
 interface ProductPropTypes {
     product: ProductResponseType
 }
 
 const ProductCard = ({ product }: ProductPropTypes) => {
+
+    const handleAddToCart = async () => {
+        const cartProduct: CartProductListType = {
+            productId: product._id,
+            name: product.name,
+            brand: product.brand,
+            image: product.image,
+            description: product.description,
+            price: product.price,
+            oldPrice: product.old_price,
+            category: product.category,
+            ratings: product.ratings,
+            createdAt: product.createdAt
+        };
+
+        try {
+            const res = await fetch('http://localhost:5000/cart', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(cartProduct)
+            });
+            if (res.ok) {
+                alert('Product added to cart');
+            } else {
+                alert('Failed to add product');
+            }
+        } catch (err) {
+            console.error('Error: ', err);
+        }
+    };
+
     return (
         <div className='group'>
             <div className='relative group overflow-hidden'>
@@ -20,11 +53,11 @@ const ProductCard = ({ product }: ProductPropTypes) => {
                     <button className='xl:opacity-0 group-hover:opacity-100 group-hover:animate-in transform transition-all ease-linear duration-500 bg-white hover:bg-black hover:text-white p-2 rounded-sm'>
                         <HiOutlineEye />
                     </button>
-                    <button className='xl:hidden bg-white hover:bg-black hover:text-white p-2 rounded-sm transform transition-all duration-500'>
+                    <button onClick={handleAddToCart} className='xl:hidden bg-white hover:bg-black hover:text-white p-2 rounded-sm transform transition-all duration-500 cursor-pointer'>
                         <PiShoppingCartSimple />
                     </button>
                 </div>
-                <button className='hidden absolute z-50 left-1/2 bottom-4 -translate-x-1/2 text-xl opacity-0 group-hover:opacity-100 xl:flex items-center justify-center gap-2 group-hover:animate-in transform transition-all duration-500 ease-linear bg-white hover:bg-black hover:text-white px-4 py-2 rounded-sm'>
+                <button onClick={handleAddToCart} className='hidden absolute z-50 left-1/2 bottom-4 -translate-x-1/2 text-xl opacity-0 group-hover:opacity-100 xl:flex items-center justify-center gap-2 group-hover:animate-in transform transition-all duration-500 ease-linear bg-white hover:bg-black hover:text-white px-4 py-2 rounded-sm cursor-pointer'>
                     <PiShoppingCartSimple />
                     <span className='text-sm'>Add to cart</span>
                 </button>
