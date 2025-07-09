@@ -1,8 +1,9 @@
 import DrawerCard from "@/components/custom/DrawerCard/DrawerCard";
+import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { Drawer, DrawerClose, DrawerContent, DrawerFooter, DrawerHeader, DrawerTitle } from "@/components/ui/drawer";
 import { navLinks } from "@/constants/constents";
 import type { CartProductResponseType } from "@/types/product";
-import { useEffect, useState } from "react";
+import { useEffect, useState, type FormEvent } from "react";
 import { FiUser } from "react-icons/fi";
 import { IoMdArrowForward, IoMdClose, IoMdHeartEmpty } from "react-icons/io";
 import { IoSearchOutline } from "react-icons/io5";
@@ -18,6 +19,7 @@ type NavLinksType = {
 const Navbar = () => {
     const [cartProduct, setCartProduct] = useState<CartProductResponseType[]>([]);
     const [open, setOpen] = useState<boolean>(false);
+    const [openModal, setOpenModal] = useState<boolean>(false);
 
     const cartDrawerElem = <>
         <h3 className='shadow-md text-base px-4 py-3'>Cart Products</h3>
@@ -29,6 +31,11 @@ const Navbar = () => {
             </div>
         </div>
     </>
+
+    const handleSubmit = (e: FormEvent) => {
+        e.preventDefault();
+        alert('Payment successful');
+    }
 
     useEffect(() => {
         const getCartProducts = async () => {
@@ -46,6 +53,7 @@ const Navbar = () => {
 
     return (
         <nav className='py-4 lg:py-5 shadow'>
+            {/* Cart products drawer */}
             <Drawer direction='right' open={open} onOpenChange={() => setOpen(false)}>
                 <DrawerContent className='max-h-[100vh] rounded-none w-full md:w-[340px]' aria-describedby="">
                     <DrawerHeader className='flex flex-row items-center justify-between border-b'>
@@ -58,13 +66,28 @@ const Navbar = () => {
                         {cartDrawerElem}
                     </div>
                     <DrawerFooter className='border-t mt-0'>
-                        <button className='flex items-center gap-2 cursor-pointer hover:text-orange-500'>
+                        <button onClick={() => setOpenModal(!openModal)} className='flex items-center gap-2 cursor-pointer hover:text-orange-500'>
                             Checkout
                             <IoMdArrowForward />
                         </button>
                     </DrawerFooter>
                 </DrawerContent>
             </Drawer>
+            {/* Checkout modal */}
+            <Dialog open={openModal} onOpenChange={() => setOpenModal(!openModal)}>
+                <DialogContent className='sm:max-w-max max-h-[80vh] md:max-h-max overflow-auto' aria-describedby=''>
+                    <DialogTitle className='sr-only'>Checkout</DialogTitle>
+                    <form onSubmit={handleSubmit}>
+                        <label htmlFor='name' className='font-semibold block mb-2'>Name</label>
+                        <input id='name' className='w-full rounded-sm px-3 py-2 border focus:outline-none focus:border-orange-400' type='text' placeholder='Name' autoCapitalize='name' />
+                        <label htmlFor='email' className='font-semibold block my-2'>Email</label>
+                        <input id='email' className='w-full rounded-sm px-3 py-2 border focus:outline-none focus:border-orange-400' type='email' placeholder='Email' autoCapitalize='email' />
+                        <label htmlFor='address' className='font-semibold block my-2'>Address</label>
+                        <input id='address' className='w-full rounded-sm px-3 py-2 border focus:outline-none focus:border-orange-400' type='text' placeholder='Address' autoCapitalize='address' />
+                        <input className={`cursor-pointer w-full mt-8 py-[11px] rounded-sm bg-black hover:bg-gray-900 text-white`} type="submit" value='Pay Now' />
+                    </form>
+                </DialogContent>
+            </Dialog>
             <div className='w-full lg:w-5/6 xl:w-4/6 mx-auto px-4 lg:px-0 flex items-center justify-between'>
                 <h2 className='text-3xl'>GadgetCell</h2>
                 <div className='space-x-9'>
