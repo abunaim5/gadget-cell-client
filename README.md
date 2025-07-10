@@ -1,69 +1,69 @@
-# React + TypeScript + Vite
+# Gadget Cell (Mini E-Commerce SPA)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A responsive single-page e-commerce application built with React and TypeScript. Users can browse products, view detailed info, add items to the cart, remove items from cart and proceed to checkout — all without authentication.
 
-Currently, two official plugins are available:
+## Live Demo
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+🔗 [View Live Demo](https://gadget-cell.vercel.app/)
 
-## Expanding the ESLint configuration
+## Features
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- 🏠 Home Page: Welcome section with featured call-to-action
+- 🧾 Products Page: Full product listing with Add to Cart functionality  
+- 📄 Product Detail Page: View detailed information for each product  
+- 🛒 Cart Sidebar: Slide-in cart with quantity control and checkout  
+- 💳 Checkout Modal: Simulated checkout form (Name, Email, Address)  
+- 📱 Fully Responsive: Works on mobile, tablet, and desktop  
+- 💡 Clean UI/UX: Built with custom and using shadcn/ui
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## Tech Stack
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+- ⚛️ React
+- ⌨️ TypeScript
+- 💅 Tailwind CSS
+- 🎨 shadcn/ui
+- 🧠 React Hooks & Context API (for cart state)
+- 🌐 Vercel (for deployment)
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## Pages Overview
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### 1. Home Page
+- Introductory section and navigation
+- Quick link to explore products
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### 2. Products Page
+- Displays at least 8 dummy products
+- Each product includes: image, title, price, and “Add to Cart” button
+- Cards are clickable and lead to individual Product Detail pages
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+### 3. Product Detail Page
+- Shows complete information about a selected product
+- Includes title, description, price, and a larger image
+- “Add to Cart” button available
+
+### 4. Cart Sidebar
+- Slide-in panel showing selected items
+- Includes quantity increase/decrease controls
+- Displays total cost and a “Checkout” button
+
+### 5. Checkout Modal
+- Modal form triggered from the cart
+- Fields: Name, Email, and Address
+- Submit button simulates order placement
+
+## Getting Started Locally
+
+To run the project locally:
+
+```bash
+# Clone the repository
+git clone https://github.com/abunaim5/gadget-cell-client.git
+
+# Navigate into the directory
+cd gadget-cell-client
+
+# Install dependencies
+npm install
+
+# Run the development server
+npm run dev
