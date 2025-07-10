@@ -4,6 +4,7 @@ import { Trash2 } from "lucide-react";
 import { useState } from "react";
 import { FaMinus, FaPlus } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import Swal from "sweetalert2";
 
 type DrawerCardProps = {
     product: CartProductResponseType;
@@ -13,16 +14,25 @@ const DrawerCard = ({ product }: DrawerCardProps) => {
     const [count, setCount] = useState<number>(1);
 
     const handleDeleteCart = async () => {
-        try{
+        try {
             const res = await fetch(`https://gadget-cell-server.vercel.app/cart/${product._id}`, {
                 method: 'DELETE'
             });
-            if(res.ok) {
-                alert('Product remove from cart');
-            }else{
-                alert('Failed to remove product');
+            if (res.ok) {
+                Swal.fire({
+                    icon: "success",
+                    title: "Product remove from cart.",
+                    showConfirmButton: false,
+                    timer: 2000
+                });
+            } else {
+                Swal.fire({
+                    icon: "error",
+                    title: "Oops...",
+                    text: "Failed to remove product!",
+                });
             }
-        }catch(err){
+        } catch (err) {
             console.error(err);
         }
     }

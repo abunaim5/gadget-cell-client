@@ -11,6 +11,8 @@ import { PiShoppingCartSimple } from "react-icons/pi";
 import { Link } from "react-router-dom";
 import { NavLink } from "react-router-dom";
 import { VscMenu } from "react-icons/vsc";
+import Swal from "sweetalert2";
+
 
 type NavLinksType = {
     name: string;
@@ -37,7 +39,12 @@ const Navbar = () => {
 
     const handleSubmit = (e: FormEvent) => {
         e.preventDefault();
-        alert('Payment successful');
+        Swal.fire({
+            icon: "success",
+            title: "Payment successful.",
+            showConfirmButton: false,
+            timer: 2000
+        });
     }
 
     useEffect(() => {

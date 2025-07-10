@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button';
 import { IoMdHeartEmpty } from 'react-icons/io';
 import { Suspense } from 'react';
 import { Skeleton } from '@/components/ui/skeleton';
+import Swal from "sweetalert2";
 
 const Product = () => {
     const product: ProductResponseType = useLoaderData();
@@ -33,9 +34,18 @@ const Product = () => {
                 body: JSON.stringify(cartProduct)
             });
             if (res.ok) {
-                alert('Product added to cart');
+                Swal.fire({
+                    icon: "success",
+                    title: "Product added to cart.",
+                    showConfirmButton: false,
+                    timer: 2000
+                });
             } else {
-                alert('Failed to add product');
+                Swal.fire({
+                    icon: "error",
+                    title: "Oops...",
+                    text: 'Failed to add product',
+                });
             }
         } catch (err) {
             console.error('Error: ', err);

@@ -2,6 +2,7 @@ import { PiHeartStraightLight, PiShoppingCartSimple } from "react-icons/pi";
 import { HiOutlineEye } from "react-icons/hi";
 import { Link } from "react-router-dom";
 import type { CartProductListType, ProductResponseType } from "@/types/product";
+import Swal from "sweetalert2";
 
 interface ProductPropTypes {
     product: ProductResponseType
@@ -33,10 +34,19 @@ const ProductCard = ({ product }: ProductPropTypes) => {
             });
             const data = await res.json();
             if (res.ok) {
-                alert('Product added to cart');
+                Swal.fire({
+                    icon: "success",
+                    title: "Product added to cart.",
+                    showConfirmButton: false,
+                    timer: 2000
+                });
                 window.location.reload();
             } else {
-                alert(`Failed to add product. ${data.message}`);
+                Swal.fire({
+                    icon: "error",
+                    title: "Oops...",
+                    text: `${data.message}`,
+                });
             }
         } catch (err) {
             console.error('Error: ', err);
