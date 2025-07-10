@@ -10,6 +10,7 @@ import { IoSearchOutline } from "react-icons/io5";
 import { PiShoppingCartSimple } from "react-icons/pi";
 import { Link } from "react-router-dom";
 import { NavLink } from "react-router-dom";
+import { VscMenu } from "react-icons/vsc";
 
 type NavLinksType = {
     name: string;
@@ -20,6 +21,8 @@ const Navbar = () => {
     const [cartProduct, setCartProduct] = useState<CartProductResponseType[]>([]);
     const [open, setOpen] = useState<boolean>(false);
     const [openModal, setOpenModal] = useState<boolean>(false);
+    const [menuOpen, setMenuOpen] = useState<boolean>(false);
+    const linkCls = 'px-4 py-[15px] border-b text-black hover:bg-[#F3F3F3] transition-all duration-[400ms]'
 
     const cartDrawerElem = <>
         <h3 className='shadow-md text-base px-4 py-3'>Cart Products</h3>
@@ -40,7 +43,7 @@ const Navbar = () => {
     useEffect(() => {
         const getCartProducts = async () => {
             try {
-                const res = await fetch('http://localhost:5000/cart');
+                const res = await fetch('https://gadget-cell-server.vercel.app/cart');
                 const data = await res.json();
                 setCartProduct(data);
             } catch (err) {
@@ -89,13 +92,40 @@ const Navbar = () => {
                 </DialogContent>
             </Dialog>
             <div className='w-full lg:w-5/6 xl:w-4/6 mx-auto px-4 lg:px-0 flex items-center justify-between'>
-                <h2 className='text-3xl'>GadgetCell</h2>
-                <div className='space-x-9'>
+                <div className='flex flex-1/2 items-center gap-2'>
+                    <button onClick={() => setMenuOpen(!menuOpen)} className='block lg:hidden'><VscMenu className='text-2xl' /></button>
+                    <Drawer direction='left' open={menuOpen} onOpenChange={() => setMenuOpen(!menuOpen)}>
+                        <DrawerContent className='max-h-[100vh] rounded-none w-full md:w-[340px]' aria-describedby="">
+                            <DrawerHeader className='border-b flex flex-row items-center justify-between'>
+                                <DrawerTitle className='text-2xl tracking-normal font-normal'>MENU</DrawerTitle>
+                                <DrawerClose>
+                                    <IoMdClose className='text-2xl' />
+                                </DrawerClose>
+                            </DrawerHeader>
+                            <div className='flex-1 flex flex-col text-sm text-gray-500'>
+                                {
+                                    navLinks.map((nav: NavLinksType, idx) => <Link key={idx} to={nav.path} onClick={() => setMenuOpen(!menuOpen)} className={`${linkCls}`}>{nav.name}</Link>)
+                                }
+
+                                <button className={`flex items-center gap-[5px] ${linkCls}`}><IoMdHeartEmpty className='text-lg' /> <span>Wishlist</span></button>
+
+                                <button className={`flex items-center gap-[5px] ${linkCls}`}><IoSearchOutline className='text-lg' /> <span>Search</span></button>
+                            </div>
+                        </DrawerContent>
+                    </Drawer>
+                    <Link to='/' className='max-w-fit text-2xl md:text-3xl hidden lg:block'>
+                        <h2>GadgetCell</h2>
+                    </Link>
+                </div>
+                <Link to='/' className='max-w-fit text-2xl md:text-3xl text-center lg:hidden'>
+                    <h2>GadgetCell</h2>
+                </Link>
+                <div className='hidden lg:block space-x-9'>
                     {
                         navLinks.map((nav: NavLinksType, idx) => <NavLink to={nav.path} key={idx} className={({ isActive }) => isActive ? 'text-orange-500 font-semibold' : 'transition-all delay-100 hover:text-orange-500'}>{nav.name}</NavLink>)
                     }
                 </div>
-                <div className='flex items-center justify-end gap-2 md:gap-4 text-[22px] md:text-2xl'>
+                <div className='flex flex-1/2 items-center justify-end gap-2 md:gap-4 text-[22px] md:text-2xl'>
                     <IoSearchOutline className='hidden md:block cursor-pointer transition-all duration-300 hover:text-orange-500' />
                     <FiUser className='hidden md:block cursor-pointer transition-all duration-300 hover:text-orange-500' />
                     <Link to='/' className='relative hidden md:block group'>

@@ -25,7 +25,7 @@ const Product = () => {
         };
 
         try {
-            const res = await fetch('http://localhost:5000/cart', {
+            const res = await fetch('https://gadget-cell-server.vercel.app/cart', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

@@ -12,8 +12,8 @@ import { Button } from '@/components/ui/button';
 const Banner = () => {
 
     return (
-        <section className='grid grid-cols-5 grid-rows-5 gap-4 w-full lg:w-5/6 xl:w-4/6 h-[calc(100vh-76px)] mx-auto py-6 px-4 lg:px-0'>
-            <div className='col-span-3 row-span-5 p-4 rounded-md bg-white'>
+        <section className='grid grid-cols-5 md:grid-rows-5 gap-4 w-full lg:w-5/6 xl:w-4/6 min-h-[calc(100vh-76px)] mx-auto py-6 px-4 lg:px-0'>
+            <div className='col-span-5 md:col-span-3 row-span-5 p-4 rounded-md bg-white'>
                 <Swiper
                     spaceBetween={30}
                     centeredSlides={true}
@@ -55,7 +55,7 @@ const Banner = () => {
                     </SwiperSlide>
                 </Swiper>
             </div>
-            <div className='col-span-2 row-span-3 p-4 rounded-md bg-white'>
+            <div className='col-span-5 md:col-span-2 row-span-3 p-4 rounded-md bg-white'>
                 <div className='w-full flex flex-col items-center justify-center text-center'>
                     <img src="https://i.postimg.cc/Zqbf7mRk/airpod-pro-2.png" className="flex-1/2" />
                     <div className='space-y-3 flex-1/2'>
@@ -67,7 +67,7 @@ const Banner = () => {
                     </div>
                 </div>
             </div>
-            <div className='col-span-2 row-span-2 p-4 rounded-md bg-white'>
+            <div className='col-span-5 md:col-span-2 row-span-2 p-4 rounded-md bg-white'>
                 <div className='w-full h-full flex items-center justify-between text-center'>
                     <img src="https://i.postimg.cc/fyGddz6G/oneplus-watch.png" className='w-1/2' />
                     <div className='space-y-3 flex-1/2'>

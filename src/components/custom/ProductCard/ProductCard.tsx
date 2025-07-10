@@ -24,17 +24,19 @@ const ProductCard = ({ product }: ProductPropTypes) => {
         };
 
         try {
-            const res = await fetch('http://localhost:5000/cart', {
+            const res = await fetch('https://gadget-cell-server.vercel.app/cart', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify(cartProduct)
             });
+            const data = await res.json();
             if (res.ok) {
                 alert('Product added to cart');
+                window.location.reload();
             } else {
-                alert('Failed to add product');
+                alert(`Failed to add product. ${data.message}`);
             }
         } catch (err) {
             console.error('Error: ', err);

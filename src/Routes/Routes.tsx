@@ -21,7 +21,7 @@ const router = createBrowserRouter([
             {
                 path: '/product/:id',
                 element: <Product />,
-                loader: async ({ params }) => await fetch(`http://localhost:5000/products/${params.id}`)
+                loader: async ({ params }) => await fetch(`https://gadget-cell-server.vercel.app/products/${params.id}`)
             },
         ],
     },

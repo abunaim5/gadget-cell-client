@@ -10,7 +10,7 @@ const TrendingProducts = () => {
     useEffect(() => {
         const getProducts = async () => {
             try {
-                const res = await fetch('http://localhost:5000/trending');
+                const res = await fetch('https://gadget-cell-server.vercel.app/trending');
                 const data = await res.json();
                 setProducts(data);
             } catch (err) {
